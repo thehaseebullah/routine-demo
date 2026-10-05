@@ -1238,3 +1238,66 @@ button, input, select, textarea {
     display: flex;
   }
 }
+
+/* Device Mode Layout Overrides */
+.app-container.mobile-layout .sub-nav-bar {
+  display: none !important;
+}
+
+.app-container.mobile-layout .mobile-bottom-nav {
+  display: flex !important;
+}
+
+.app-container.mobile-layout .fluid-stage {
+  padding: 0 12px 90px !important;
+}
+
+.app-container.force-desktop-layout .sub-nav-bar {
+  display: flex !important;
+}
+
+.app-container.force-desktop-layout .mobile-bottom-nav {
+  display: none !important;
+}
+
+.app-container.force-desktop-layout .fluid-stage {
+  padding: 0 20px 48px !important;
+  overflow-x: auto;
+}
+
+.mobile-device-frame .sub-nav-bar {
+  display: none !important;
+}
+
+.mobile-device-frame .mobile-bottom-nav {
+  position: absolute !important;
+  display: flex !important;
+}
+
+.mobile-device-frame .metric-tiles-grid {
+  grid-template-columns: 1fr 1fr !important;
+  gap: 10px;
+}
+
+.mobile-device-frame .main-view-container {
+  padding-bottom: 75px;
+}
+
+.device-toggle-btn.active-mode {
+  background: var(--blue-subtle);
+  color: var(--blue-primary);
+  border-color: var(--blue-primary);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
+}
+
+.device-btn-text {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+@media (max-width: 480px) {
+  .device-btn-text {
+    font-size: 11px;
+  }
+}
+

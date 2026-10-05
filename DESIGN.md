@@ -67,10 +67,12 @@ Using **Inter** with system font fallbacks (`-apple-system, BlinkMacSystemFont, 
 3. **Primary Navigation:**
    * **Mobile Viewport (< 768px):** Bottom Navigation Bar fixed to bottom of screen with icons and concise labels (`Overview`, `BOQ`, `Tasks`, `Progress`, `More`).
    * **Desktop Viewport (≥ 768px):** Segmented pill bar at top of project view, clean horizontal tabs without taking over the full screen with an oversized sidebar.
-4. **Mobile Device Simulation Frame (Desktop Bonus):**
-   * Reviewers on wide desktop screens can toggle between:
-     * **"Simulated Mobile App" (Default or toggleable):** Renders the application inside a sleek, realistic mobile device frame (390px × 844px) with status bar, realistic touch scrolling, and bottom nav.
-     * **"Fluid Responsive Mode":** Renders the application as a responsive desktop/tablet web app, keeping the same mobile-first ergonomics without awkward stretching.
+4. **Intelligent Device Auto-Detection & View Switching:**
+   * **Desktop Initial Mode:** When loaded on a desktop viewport (> 768px), the app automatically opens in full **Desktop View** (wide dashboard layout, top navigation tabs, 4-column metric cards).
+   * **Mobile Initial Mode:** When loaded on a mobile device or narrow screen (≤ 768px), the app automatically opens in native **Mobile View** (100% full screen width, native bottom navigation, stacked cards, no double-bezel).
+   * **Seamless Interactive Switching:** The header toggle button allows instant switching at any time:
+     * On Desktop: Toggle between **Desktop View** and **Mobile Frame** (realistic smartphone bezel on dark canvas).
+     * On Mobile: Toggle between **Mobile View** and **Desktop View** (expanded wide dashboard with horizontal scroll).
 
 ---
 

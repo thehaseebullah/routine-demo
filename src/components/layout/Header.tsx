@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Smartphone, Monitor, RotateCcw, HelpCircle, Sparkles } from 'lucide-react';
+import { Smartphone, Monitor, RotateCcw, HelpCircle } from 'lucide-react';
 import { useRole } from '../../context/RoleContext';
 import { useProject } from '../../context/ProjectContext';
 import { USER_ROLES, UserRole } from '../../types/userRole';
@@ -7,7 +7,7 @@ import { Logo } from '../common/Logo';
 import { UserGuideModal } from '../common/UserGuideModal';
 
 export const Header: React.FC = () => {
-  const { role, setRole, simulationMode, toggleSimulationMode } = useRole();
+  const { role, setRole, viewMode, toggleViewMode, isMobileDevice } = useRole();
   const { resetDemo } = useProject();
   const [isGuideOpen, setIsGuideOpen] = useState(false);
 
@@ -16,6 +16,36 @@ export const Header: React.FC = () => {
       resetDemo();
     }
   };
+
+  // Compute button text and icon based on device type and current active mode
+  const isDesktopScreen = !isMobileDevice;
+  
+  let toggleButtonIcon = <Smartphone size={14} />;
+  let toggleButtonText = 'Mobile Frame';
+  let toggleButtonTitle = 'Switch to Mobile Phone Simulation Frame';
+
+  if (isDesktopScreen) {
+    if (viewMode === 'desktop') {
+      toggleButtonIcon = <Smartphone size={14} />;
+      toggleButtonText = 'Mobile Frame';
+      toggleButtonTitle = 'Preview as Mobile Smartphone Frame';
+    } else {
+      toggleButtonIcon = <Monitor size={14} />;
+      toggleButtonText = 'Desktop View';
+      toggleButtonTitle = 'Return to Fluid Desktop Dashboard';
+    }
+  } else {
+    // Physical mobile or small screen
+    if (viewMode === 'mobile') {
+      toggleButtonIcon = <Monitor size={14} />;
+      toggleButtonText = 'Desktop';
+      toggleButtonTitle = 'Switch to Wide Desktop View';
+    } else {
+      toggleButtonIcon = <Smartphone size={14} />;
+      toggleButtonText = 'Mobile';
+      toggleButtonTitle = 'Switch to Mobile App View';
+    }
+  }
 
   return (
     <>
@@ -57,25 +87,13 @@ export const Header: React.FC = () => {
           {/* Device Simulation Toggle (Phone frame vs Fluid desktop) */}
           <button
             type="button"
-            className="device-toggle-btn"
-            onClick={toggleSimulationMode}
-            title={
-              simulationMode === 'fluid'
-                ? 'Switch to Mobile App Device Simulation Frame'
-                : 'Switch to Fluid Desktop View'
-            }
+            className={`device-toggle-btn ${viewMode === 'mobile' ? 'active-mode' : ''}`}
+            onClick={toggleViewMode}
+            title={toggleButtonTitle}
+            aria-label={toggleButtonTitle}
           >
-            {simulationMode === 'fluid' ? (
-              <>
-                <Smartphone size={15} />
-                <span className="hide-mobile-label">Mobile Frame</span>
-              </>
-            ) : (
-              <>
-                <Monitor size={15} />
-                <span className="hide-mobile-label">Fluid View</span>
-              </>
-            )}
+            {toggleButtonIcon}
+            <span className="device-btn-text">{toggleButtonText}</span>
           </button>
 
           {/* Reset Demo State Button */}
@@ -86,7 +104,7 @@ export const Header: React.FC = () => {
             title="Reset to pristine sample data"
           >
             <RotateCcw size={14} />
-            <span className="hide-mobile-label">Reset Demo</span>
+            <span className="hide-mobile-label">Reset</span>
           </button>
         </div>
       </header>
